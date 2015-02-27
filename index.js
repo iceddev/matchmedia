@@ -5,10 +5,13 @@ var dynamicMatch = typeof window !== 'undefined' ? window.matchMedia : null;
 
 // our fake MediaQueryList
 function Mql(query, values){
+  var self = this;
   if(dynamicMatch){
     var mql = dynamicMatch(query);
     this.matches = mql.matches;
     this.media = mql.media;
+    // TODO: is there a time it makes sense to remove this listener?
+    mql.addListener(update);
   } else {
     this.matches = staticMatch(query, values);
     this.media = query;
@@ -27,6 +30,12 @@ function Mql(query, values){
     if(mql){
       mql.removeListener(listener);
     }
+  }
+
+  // update ourselves!
+  function update(evt){
+    self.matches = evt.matches;
+    self.media = evt.media;
   }
 }
 
