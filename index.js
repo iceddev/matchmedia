@@ -7,7 +7,7 @@ var dynamicMatch = typeof window !== 'undefined' ? window.matchMedia : null;
 function Mql(query, values){
   var self = this;
   if(dynamicMatch){
-    var mql = window.matchMedia(query);
+    var mql = dynamicMatch.call(window, query);
     this.matches = mql.matches;
     this.media = mql.media;
     // TODO: is there a time it makes sense to remove this listener?
