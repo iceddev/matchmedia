@@ -19,6 +19,7 @@ function Mql(query, values){
 
   this.addListener = addListener;
   this.removeListener = removeListener;
+  this.dispose = dispose;
 
   function addListener(listener){
     if(mql){
@@ -36,6 +37,10 @@ function Mql(query, values){
   function update(evt){
     self.matches = evt.matches;
     self.media = evt.media;
+  }
+
+  function dispose(){
+    mql.removeListener(update);
   }
 }
 
